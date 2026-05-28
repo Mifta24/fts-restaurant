@@ -173,6 +173,10 @@ return [
         'button' => 'Get Free Analysis →',
         'footnote' => '✓ We reply within 1 business day · ✓ No sales pressure<br>✓ Questions are welcome · ✓ Comparing options is okay · ✓ Online available',
         'success' => 'Thank you. Your form has been validated and is ready to be processed.',
+        'ai_title' => 'AI Analysis Draft',
+        'ai_note' => 'Note: this is an initial draft based on the form data. The team should still check the source data before sending the final report.',
+        'ai_error' => 'Your form was received, but the AI draft could not be created yet. The team can still process it manually.',
+        'ai_not_configured' => 'Your form was received. The AI draft is not active because the API key has not been configured.',
     ],
     'footer' => [
         'links' => ['Privacy Policy', 'Terms of Service', 'Company Info', 'Contact'],

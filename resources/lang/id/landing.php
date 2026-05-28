@@ -185,6 +185,10 @@ return [
         'button' => 'Cek Analisis Gratis →',
         'footnote' => '✓ Kami balas dalam 1 hari kerja · ✓ Tanpa pemaksaan jualan<br>✓ Hanya tanya-tanya juga boleh · ✓ Sedang membandingkan? Tidak masalah · ✓ Online juga bisa',
         'success' => 'Terima kasih. Form Anda sudah tervalidasi dan siap diproses.',
+        'ai_title' => 'Draft Analisis AI',
+        'ai_note' => 'Catatan: ini draft awal berdasarkan data form. Tim tetap perlu mengecek data asli sebelum laporan final dikirim.',
+        'ai_error' => 'Form berhasil masuk, tetapi draft AI belum berhasil dibuat. Tim tetap bisa memprosesnya secara manual.',
+        'ai_not_configured' => 'Form berhasil masuk. Draft AI belum aktif karena API key belum diatur.',
     ],
     'footer' => [
         'links' => ['Kebijakan Privasi', 'Syarat & Ketentuan', 'Tentang Kami', 'Kontak'],

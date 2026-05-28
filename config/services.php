@@ -22,6 +22,15 @@ return [
         'key' => env('RESEND_API_KEY'),
     ],
 
+    'ai' => [
+        'provider' => env('AI_PROVIDER', 'openai-compatible'),
+        'base_url' => env('AI_BASE_URL', 'https://api.groq.com/openai/v1'),
+        'api_key' => env('AI_API_KEY'),
+        'model' => env('AI_MODEL', 'llama-3.1-8b-instant'),
+        'timeout' => env('AI_TIMEOUT', 30),
+        'proxy' => env('AI_PROXY'),
+    ],
+
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),

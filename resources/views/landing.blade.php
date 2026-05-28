@@ -305,6 +305,16 @@
       @if (session('status'))
         <div class="mb-6 rounded-xl border border-fts-green-200 bg-fts-green-50 px-4 py-3 text-sm font-bold text-fts-green-900">{{ session('status') }}</div>
       @endif
+      @if (session('ai_analysis'))
+        <div class="mb-6 rounded-xl border border-fts-green-200 bg-fts-green-50 px-4 py-4 text-sm text-fts-green-950">
+          <p class="font-black mb-2">{{ __('landing.form.ai_title') }}</p>
+          <div class="whitespace-pre-line leading-relaxed">{{ session('ai_analysis') }}</div>
+          <p class="mt-4 border-t border-fts-green-200 pt-3 text-xs text-fts-green-900/75">{{ __('landing.form.ai_note') }}</p>
+        </div>
+      @endif
+      @if (session('ai_analysis_error'))
+        <div class="mb-6 rounded-xl border border-fts-gold-400 bg-fts-gold-50 px-4 py-3 text-sm font-bold text-fts-gold-700">{{ session('ai_analysis_error') }}</div>
+      @endif
       @if ($errors->any())
         <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{{ $errors->first() }}</div>
       @endif

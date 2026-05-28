@@ -1,7 +1,10 @@
 <?php
 
+use App\Services\RestaurantAnalysisService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 $supportedLocales = [
     'id' => 'id',
@@ -28,7 +31,7 @@ Route::get('/{locale}', function (string $locale) use ($supportedLocales) {
     ]);
 })->whereIn('locale', array_keys($supportedLocales))->name('landing.locale');
 
-Route::post('/contact', function (Request $request) use ($supportedLocales) {
+Route::post('/contact', function (Request $request, RestaurantAnalysisService $analysisService) use ($supportedLocales) {
     $locale = (string) $request->input('locale', 'id');
     app()->setLocale($supportedLocales[$locale] ?? 'id');
 
@@ -44,10 +47,24 @@ Route::post('/contact', function (Request $request) use ($supportedLocales) {
         'consent' => ['accepted'],
     ]);
 
-    // Lead storage/email can be connected here. For now the form is validated and acknowledged.
     session()->flash('lead', $validated);
 
+    if ($analysisService->isConfigured()) {
+        try {
+            session()->flash('ai_analysis', $analysisService->analyze($validated));
+        } catch (Throwable $exception) {
+            Log::warning('Free analysis AI draft failed.', [
+                'email' => $validated['email'],
+                'message' => $exception->getMessage(),
+            ]);
+
+            session()->flash('ai_analysis_error', __('landing.form.ai_error'));
+        }
+    } else {
+        session()->flash('ai_analysis_error', __('landing.form.ai_not_configured'));
+    }
+
     return redirect()
-        ->to(url()->previous().'#contact')
+        ->to(Str::before(url()->previous(), '#').'#contact')
         ->with('status', __('landing.form.success'));
 })->name('landing.contact');
