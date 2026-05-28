@@ -306,10 +306,32 @@
         <div class="mb-6 rounded-xl border border-fts-green-200 bg-fts-green-50 px-4 py-3 text-sm font-bold text-fts-green-900">{{ session('status') }}</div>
       @endif
       @if (session('ai_analysis'))
-        <div class="mb-6 rounded-xl border border-fts-green-200 bg-fts-green-50 px-4 py-4 text-sm text-fts-green-950">
-          <p class="font-black mb-2">{{ __('landing.form.ai_title') }}</p>
-          <div class="whitespace-pre-line leading-relaxed">{{ session('ai_analysis') }}</div>
-          <p class="mt-4 border-t border-fts-green-200 pt-3 text-xs text-fts-green-900/75">{{ __('landing.form.ai_note') }}</p>
+        @php($analysis = session('ai_analysis'))
+        <div class="mb-6 overflow-hidden rounded-2xl border border-fts-green-200 bg-fts-green-50 text-sm text-fts-green-950">
+          <div class="border-b border-fts-green-200 bg-white px-5 py-4">
+            <p class="text-[11px] font-black uppercase tracking-widest text-fts-gold-700">{{ __('landing.form.ai_title') }}</p>
+            <p class="mt-1 text-lg font-black leading-tight">{{ is_array($analysis) ? data_get($analysis, 'title', __('landing.form.ai_title')) : __('landing.form.ai_title') }}</p>
+            @if (is_array($analysis) && filled(data_get($analysis, 'summary')))
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">{{ data_get($analysis, 'summary') }}</p>
+            @endif
+          </div>
+          @if (is_array($analysis))
+            <div class="divide-y divide-fts-green-200">
+              @foreach (data_get($analysis, 'sections', []) as $section)
+                <div class="px-5 py-4">
+                  <p class="mb-3 font-black text-fts-green-900">{{ data_get($section, 'heading') }}</p>
+                  <ul class="space-y-2">
+                    @foreach (data_get($section, 'items', []) as $item)
+                      <li class="flex gap-2 leading-relaxed text-slate-700"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-fts-gold-400"></span><span>{{ $item }}</span></li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endforeach
+            </div>
+          @else
+            <div class="whitespace-pre-line px-5 py-4 leading-relaxed">{{ $analysis }}</div>
+          @endif
+          <p class="mx-5 mb-4 border-t border-fts-green-200 pt-3 text-xs text-fts-green-900/75">{{ __('landing.form.ai_note') }}</p>
         </div>
       @endif
       @if (session('ai_analysis_error'))

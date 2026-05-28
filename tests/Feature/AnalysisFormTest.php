@@ -18,7 +18,16 @@ class AnalysisFormTest extends TestCase
                 'choices' => [
                     [
                         'message' => [
-                            'content' => 'Draft analisis restoran berhasil dibuat.',
+                            'content' => json_encode([
+                                'title' => 'Draft Analisis Warung Bahagia',
+                                'summary' => 'Restoran punya peluang memperkuat kanal digital.',
+                                'sections' => [
+                                    [
+                                        'heading' => 'Ringkasan kondisi awal',
+                                        'items' => ['Website dan media sosial perlu dirapikan.'],
+                                    ],
+                                ],
+                            ]),
                         ],
                     ],
                 ],
@@ -42,7 +51,8 @@ class AnalysisFormTest extends TestCase
         $response
             ->assertRedirect('http://localhost/#contact')
             ->assertSessionHas('status')
-            ->assertSessionHas('ai_analysis', 'Draft analisis restoran berhasil dibuat.');
+            ->assertSessionHas('ai_analysis.title', 'Draft Analisis Warung Bahagia')
+            ->assertSessionHas('ai_analysis.sections.0.heading', 'Ringkasan kondisi awal');
 
         Http::assertSent(fn ($request) => $request->url() === 'https://example.test/v1/chat/completions'
             && $request['model'] === 'test-model'
