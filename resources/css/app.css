@@ -1,9 +1,45 @@
 @import 'tailwindcss';
 
+@source '../views/**/*.blade.php';
+@source '../lang/**/*.php';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Inter', 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: 'Playfair Display', Georgia, serif;
+
+    --color-fts-green-50: #f3f8f5;
+    --color-fts-green-100: #e8f3ee;
+    --color-fts-green-200: #c5e0d2;
+    --color-fts-green-300: #9ec6b3;
+    --color-fts-green-400: #5a9c7c;
+    --color-fts-green-500: #1a8466;
+    --color-fts-green-600: #0f6b51;
+    --color-fts-green-700: #0a5740;
+    --color-fts-green-800: #0a4d3a;
+    --color-fts-green-900: #073d2e;
+    --color-fts-green-950: #061a13;
+
+    --color-fts-gold-50: #faf4e3;
+    --color-fts-gold-100: #f5ecd5;
+    --color-fts-gold-200: #ecdba8;
+    --color-fts-gold-300: #e0c478;
+    --color-fts-gold-400: #d4af37;
+    --color-fts-gold-500: #c9a961;
+    --color-fts-gold-600: #b8932e;
+    --color-fts-gold-700: #a88a2e;
+    --color-fts-gold-800: #7d6722;
+
+    --color-fts-cream: #faf8f3;
+    --color-fts-cream-dark: #f5f1e8;
+
+    --shadow-gold: 0 14px 38px rgba(201, 169, 97, 0.42);
+    --shadow-green: 0 8px 24px rgba(7, 61, 46, 0.10);
+    --shadow-green-lg: 0 20px 50px rgba(7, 61, 46, 0.18);
+
+    --animate-cta-pulse: ctaPulse 2.4s ease-in-out infinite;
+    --animate-live-pulse: livePulse 1.4s ease-in-out infinite;
+    --animate-whatsapp-pulse: whatsappPulse 2.4s ease-in-out infinite;
 }

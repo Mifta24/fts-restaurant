@@ -5,6 +5,15 @@
     $localeLinks = ['id' => '/id', 'en' => '/en', 'jp' => '/jp'];
     $waUrl = config('services.whatsapp.url', 'https://wa.me/');
     $caseHeadings = __('landing.cases.headings');
+    $structuredData = [
+        '@context' => 'https://schema.org',
+        '@type' => 'ProfessionalService',
+        'name' => $schema['name'],
+        'description' => $schema['description'],
+        'url' => $schema['url'],
+        'areaServed' => ['ID', 'Global'],
+        'serviceType' => 'Restaurant Digital Marketing',
+    ];
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $meta['lang'] }}">
@@ -25,35 +34,7 @@
 <link rel="alternate" hreflang="{{ $slug === 'jp' ? 'ja' : $slug }}" href="{{ url($path) }}">
 @endforeach
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          'fts-green': {50:'#f3f8f5',100:'#e8f3ee',200:'#c5e0d2',300:'#9ec6b3',400:'#5a9c7c',500:'#1a8466',600:'#0f6b51',700:'#0a5740',800:'#0a4d3a',900:'#073d2e',950:'#061a13'},
-          'fts-gold': {50:'#faf4e3',100:'#f5ecd5',200:'#ecdba8',300:'#e0c478',400:'#d4af37',500:'#c9a961',600:'#b8932e',700:'#a88a2e',800:'#7d6722'},
-          'fts-cream':'#faf8f3',
-          'fts-cream-dark':'#f5f1e8',
-        },
-        fontFamily: {
-          sans: {!! $meta['font_sans'] !!},
-          serif: {!! $meta['font_serif'] !!},
-        },
-        boxShadow: {
-          gold: '0 14px 38px rgba(201,169,97,0.42)',
-          green: '0 8px 24px rgba(7,61,46,0.10)',
-          'green-lg': '0 20px 50px rgba(7,61,46,0.18)',
-        },
-        animation: {
-          'cta-pulse': 'ctaPulse 2.4s ease-in-out infinite',
-          'live-pulse': 'livePulse 1.4s ease-in-out infinite',
-          'whatsapp-pulse': 'whatsappPulse 2.4s ease-in-out infinite',
-        },
-      }
-    }
-  }
-</script>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{{ $meta['font_url'] }}" rel="stylesheet">
@@ -74,15 +55,7 @@
   @media (max-width: 768px) { body { padding-bottom: 88px; } }
 </style>
 <script type="application/ld+json">
-{!! json_encode([
-    '@context' => 'https://schema.org',
-    '@type' => 'ProfessionalService',
-    'name' => $schema['name'],
-    'description' => $schema['description'],
-    'url' => $schema['url'],
-    'areaServed' => ['ID', 'Global'],
-    'serviceType' => 'Restaurant Digital Marketing',
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+{!! json_encode($structuredData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
 </script>
 </head>
 
