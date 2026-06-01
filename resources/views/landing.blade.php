@@ -75,7 +75,7 @@
           <a href="{{ url($localeLinks[$slug]) }}" class="px-3 py-1.5 rounded-full {{ $localeSlug === $slug ? 'bg-white shadow-sm text-fts-gold-700' : 'hover:bg-white/70' }}">{{ $label }}</a>
         @endforeach
       </nav>
-      <a href="#contact" class="bg-gradient-to-br from-fts-gold-400 to-fts-gold-500 text-fts-green-950 px-5 py-2.5 rounded-full font-black text-sm shadow-md hover:shadow-gold transition-all whitespace-nowrap">{{ __('landing.shared.primary_cta') }}</a>
+      <a href="#analysis" class="bg-gradient-to-br from-fts-gold-400 to-fts-gold-500 text-fts-green-950 px-5 py-2.5 rounded-full font-black text-sm shadow-md hover:shadow-gold transition-all whitespace-nowrap">{{ __('landing.shared.primary_cta') }}</a>
     </div>
   </div>
 </header>
@@ -122,7 +122,7 @@
         </div>
         <p class="text-sm text-slate-500 font-bold">⏱ {{ __('landing.shared.time_note') }}</p>
         <div class="flex flex-col sm:flex-row gap-3">
-          <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 px-8 py-5 rounded-full font-black text-base md:text-lg shadow-gold hover:-translate-y-1 transition-all animate-cta-pulse">{{ __('landing.shared.primary_cta') }} <span>→</span></a>
+          <a href="#analysis" class="inline-flex items-center justify-center gap-2 bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 px-8 py-5 rounded-full font-black text-base md:text-lg shadow-gold hover:-translate-y-1 transition-all animate-cta-pulse">{{ __('landing.shared.primary_cta') }} <span>→</span></a>
           <a href="{{ $waUrl }}" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-7 py-5 rounded-full font-bold shadow-lg hover:bg-[#1ebe5a] hover:-translate-y-0.5 transition-all">@include('partials.whatsapp-icon') {{ __('landing.shared.whatsapp_cta') }}</a>
         </div>
         <p class="text-xs text-slate-500 pt-2">{{ __('landing.hero.disclaimer') }}</p>
@@ -195,7 +195,7 @@
         </div>
       @endforeach
     </div>
-    <div class="text-center mt-12"><a href="#contact" class="inline-flex items-center gap-2 bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 px-10 py-5 rounded-full font-black text-base md:text-lg shadow-gold hover:-translate-y-1 transition-all animate-cta-pulse">{{ __('landing.shared.primary_cta') }} <span>→</span></a></div>
+    <div class="text-center mt-12"><a href="#analysis" class="inline-flex items-center gap-2 bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 px-10 py-5 rounded-full font-black text-base md:text-lg shadow-gold hover:-translate-y-1 transition-all animate-cta-pulse">{{ __('landing.shared.primary_cta') }} <span>→</span></a></div>
   </div>
 </section>
 
@@ -281,7 +281,7 @@
           <div class="text-center"><div class="w-14 h-14 mx-auto rounded-full bg-fts-green-900 text-fts-gold-400 flex items-center justify-center font-serif font-black text-lg mb-3">{{ $loop->iteration }}</div><h4 class="text-fts-green-900 font-black mb-2 text-sm">{{ $item['title'] }}</h4><p class="text-slate-600 text-xs">{{ $item['body'] }}</p></div>
         @endforeach
       </div>
-      <div class="text-center"><a href="#contact" class="inline-flex items-center gap-2 bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 px-10 py-5 rounded-full font-black text-base md:text-lg shadow-gold hover:-translate-y-1 transition-all animate-cta-pulse">{{ __('landing.shared.primary_cta') }} <span>→</span></a><p class="text-xs text-slate-500 mt-4 font-bold">⏱ {{ __('landing.shared.time_note') }}</p></div>
+      <div class="text-center"><a href="#analysis" class="inline-flex items-center gap-2 bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 px-10 py-5 rounded-full font-black text-base md:text-lg shadow-gold hover:-translate-y-1 transition-all animate-cta-pulse">{{ __('landing.shared.primary_cta') }} <span>→</span></a><p class="text-xs text-slate-500 mt-4 font-bold">⏱ {{ __('landing.shared.time_note') }}</p></div>
     </div>
   </div>
 </section>
@@ -299,7 +299,7 @@
         <div class="bg-white/10 backdrop-blur-md border border-fts-gold-400/30 rounded-xl p-5 flex items-start gap-3"><span class="text-fts-gold-400 text-2xl leading-none mt-0.5">✓</span><div><strong class="block text-fts-gold-400 font-black text-sm mb-1">{{ $item['title'] }}</strong><span class="text-white/80 text-xs leading-relaxed">{{ $item['body'] }}</span></div></div>
       @endforeach
     </div>
-    <div class="bg-white text-slate-800 rounded-3xl p-8 md:p-12 max-w-2xl mx-auto shadow-2xl border-t-8 border-fts-gold-400">
+    <div id="analysis" class="scroll-mt-28 bg-white text-slate-800 rounded-3xl p-8 md:p-12 max-w-2xl mx-auto shadow-2xl border-t-8 border-fts-gold-400">
       <h3 class="text-fts-green-900 font-black text-xl md:text-2xl text-center mb-2">{{ __('landing.form.title') }}</h3>
       <p class="text-center text-slate-500 text-sm mb-7">{{ __('landing.form.subtitle') }}</p>
       @if (session('status'))
@@ -369,7 +369,7 @@
     <div class="max-w-3xl mx-auto mt-14 text-center">
       <p class="text-white text-lg md:text-2xl font-black leading-relaxed mb-3">{!! __('landing.contact.closing_title') !!}</p>
       <p class="text-white/85 text-sm md:text-base leading-relaxed mb-8">{{ __('landing.contact.closing_body') }}</p>
-      <a href="#" onclick="document.getElementById('name').focus(); return false;" class="inline-flex items-center gap-2 bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 px-9 py-5 rounded-full font-black text-base md:text-lg shadow-gold hover:-translate-y-1 transition-all animate-cta-pulse">{{ __('landing.shared.primary_cta') }} <span>→</span></a>
+      <a href="#analysis" onclick="document.getElementById('name').focus();" class="inline-flex items-center gap-2 bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 px-9 py-5 rounded-full font-black text-base md:text-lg shadow-gold hover:-translate-y-1 transition-all animate-cta-pulse">{{ __('landing.shared.primary_cta') }} <span>→</span></a>
       <p class="text-xs text-white/70 mt-4 font-bold">⏱ {{ __('landing.shared.time_note') }}</p>
     </div>
   </div>
@@ -379,7 +379,7 @@
   <div class="max-w-6xl mx-auto px-6">
     <div class="font-serif text-2xl font-bold text-fts-gold-400 tracking-widest mb-2">F<span class="text-white">T</span>S</div>
     <p class="text-xs text-slate-500 tracking-widest mb-6">{{ __('landing.brand.footer_tagline') }}</p>
-    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-sm">@foreach (__('landing.footer.links') as $link)<a href="#" class="hover:text-fts-gold-400 transition-colors">{{ $link }}</a>@endforeach</div>
+    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-sm">@foreach (__('landing.footer.links') as $link)<span class="text-slate-400">{{ $link }}</span>@endforeach</div>
     <p class="text-xs text-slate-500">{{ __('landing.footer.copyright') }}</p>
   </div>
 </footer>
@@ -391,7 +391,7 @@
 </a>
 
 <div class="md:hidden fixed bottom-0 left-0 right-0 z-[98] bg-white/97 backdrop-blur-md border-t-2 border-fts-gold-400 shadow-2xl px-3 py-3">
-  <a href="#contact" class="block w-full bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 text-center py-4 rounded-full font-black text-base shadow-gold">{{ __('landing.shared.primary_cta') }} →</a>
+  <a href="#analysis" class="block w-full bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 text-center py-4 rounded-full font-black text-base shadow-gold">{{ __('landing.shared.primary_cta') }} →</a>
 </div>
 </body>
 </html>

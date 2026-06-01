@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Mail\FreeAnalysisLeadSubmitted;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class AnalysisFormTest extends TestCase
@@ -12,6 +14,8 @@ class AnalysisFormTest extends TestCase
         config()->set('services.ai.base_url', 'https://example.test/v1');
         config()->set('services.ai.api_key', 'test-key');
         config()->set('services.ai.model', 'test-model');
+        config()->set('services.analysis.recipient_email', 'owner@example.com');
+        config()->set('services.analysis.recipient_name', 'FTS Owner');
 
         Http::fake([
             'example.test/v1/chat/completions' => Http::response([
@@ -33,6 +37,7 @@ class AnalysisFormTest extends TestCase
                 ],
             ]),
         ]);
+        Mail::fake();
 
         $response = $this
             ->from('/#contact')
@@ -49,7 +54,7 @@ class AnalysisFormTest extends TestCase
             ]);
 
         $response
-            ->assertRedirect('http://localhost/#contact')
+            ->assertRedirect('http://localhost/#analysis')
             ->assertSessionHas('status')
             ->assertSessionHas('ai_analysis.title', 'Draft Analisis Warung Bahagia')
             ->assertSessionHas('ai_analysis.sections.0.heading', 'Ringkasan kondisi awal');
@@ -58,5 +63,20 @@ class AnalysisFormTest extends TestCase
             && $request['model'] === 'test-model'
             && $request['messages'][1]['content'] !== ''
         );
+
+        Mail::assertSent(FreeAnalysisLeadSubmitted::class, fn (FreeAnalysisLeadSubmitted $mail) => $mail->hasTo('owner@example.com')
+            && data_get($mail->lead, 'email') === 'budi@example.com'
+            && data_get($mail->analysis, 'title') === 'Draft Analisis Warung Bahagia'
+        );
+    }
+
+    public function test_free_analysis_buttons_point_to_analysis_form(): void
+    {
+        $response = $this->get('/en');
+
+        $response
+            ->assertOk()
+            ->assertSee('id="analysis"', false)
+            ->assertSee('href="#analysis"', false);
     }
 }

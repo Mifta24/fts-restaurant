@@ -31,6 +31,15 @@ return [
         'proxy' => env('AI_PROXY'),
     ],
 
+    'analysis' => [
+        'recipient_email' => env('ANALYSIS_RECIPIENT_EMAIL', env('MAIL_FROM_ADDRESS')),
+        'recipient_name' => env('ANALYSIS_RECIPIENT_NAME', 'FTS Team'),
+    ],
+
+    'whatsapp' => [
+        'url' => env('WHATSAPP_URL', 'https://wa.me/'),
+    ],
+
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),

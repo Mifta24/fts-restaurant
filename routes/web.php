@@ -1,8 +1,10 @@
 <?php
 
+use App\Mail\FreeAnalysisLeadSubmitted;
 use App\Services\RestaurantAnalysisService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -49,22 +51,42 @@ Route::post('/contact', function (Request $request, RestaurantAnalysisService $a
 
     session()->flash('lead', $validated);
 
+    $analysis = null;
+    $analysisError = null;
+
     if ($analysisService->isConfigured()) {
         try {
-            session()->flash('ai_analysis', $analysisService->analyze($validated));
+            $analysis = $analysisService->analyze($validated);
+            session()->flash('ai_analysis', $analysis);
         } catch (Throwable $exception) {
             Log::warning('Free analysis AI draft failed.', [
                 'email' => $validated['email'],
                 'message' => $exception->getMessage(),
             ]);
 
-            session()->flash('ai_analysis_error', __('landing.form.ai_error'));
+            $analysisError = __('landing.form.ai_error');
+            session()->flash('ai_analysis_error', $analysisError);
         }
     } else {
-        session()->flash('ai_analysis_error', __('landing.form.ai_not_configured'));
+        $analysisError = __('landing.form.ai_not_configured');
+        session()->flash('ai_analysis_error', $analysisError);
+    }
+
+    if (filled(config('services.analysis.recipient_email'))) {
+        try {
+            Mail::to(
+                (string) config('services.analysis.recipient_email'),
+                (string) config('services.analysis.recipient_name')
+            )->send(new FreeAnalysisLeadSubmitted($validated, $analysis, $analysisError));
+        } catch (Throwable $exception) {
+            Log::error('Free analysis lead notification failed.', [
+                'email' => $validated['email'],
+                'message' => $exception->getMessage(),
+            ]);
+        }
     }
 
     return redirect()
-        ->to(Str::before(url()->previous(), '#').'#contact')
+        ->to(Str::before(url()->previous(), '#').'#analysis')
         ->with('status', __('landing.form.success'));
 })->name('landing.contact');
