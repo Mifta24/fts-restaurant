@@ -299,7 +299,17 @@
         <div class="bg-white/10 backdrop-blur-md border border-fts-gold-400/30 rounded-xl p-5 flex items-start gap-3"><span class="text-fts-gold-400 text-2xl leading-none mt-0.5">✓</span><div><strong class="block text-fts-gold-400 font-black text-sm mb-1">{{ $item['title'] }}</strong><span class="text-white/80 text-xs leading-relaxed">{{ $item['body'] }}</span></div></div>
       @endforeach
     </div>
-    <div id="analysis" class="scroll-mt-28 bg-white text-slate-800 rounded-3xl p-8 md:p-12 max-w-2xl mx-auto shadow-2xl border-t-8 border-fts-gold-400">
+    <div id="analysis" class="scroll-mt-28 relative bg-white text-slate-800 rounded-3xl p-8 md:p-12 max-w-2xl mx-auto shadow-2xl border-t-8 border-fts-gold-400">
+      <div id="analysisLoadingOverlay" class="hidden absolute inset-0 z-10 bg-white/92 backdrop-blur-sm rounded-3xl flex-col items-center justify-center gap-5 px-8 text-center">
+        <svg class="w-12 h-12 text-fts-gold-500 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>
+        <div>
+          <p class="font-black text-fts-green-900 text-lg mb-1">{{ __('landing.form.loading_title') }}</p>
+          <p class="text-slate-500 text-sm">{{ __('landing.form.loading_body') }}</p>
+        </div>
+      </div>
       <h3 class="text-fts-green-900 font-black text-xl md:text-2xl text-center mb-2">{{ __('landing.form.title') }}</h3>
       <p class="text-center text-slate-500 text-sm mb-7">{{ __('landing.form.subtitle') }}</p>
       @if (session('status'))
@@ -356,7 +366,7 @@
         </div>
         <div><label for="message" class="block text-fts-green-900 font-bold text-sm mb-2">{{ __('landing.form.message') }} <span class="text-fts-gold-700 text-xs bg-fts-gold-50 px-2 py-0.5 rounded ml-1">{{ __('landing.form.required') }}</span></label><textarea id="message" name="message" rows="5" placeholder="{{ __('landing.form.message_placeholder') }}" required class="w-full px-4 py-4 bg-fts-cream border border-fts-cream-dark rounded-lg focus:outline-none focus:border-fts-green-900 focus:bg-white focus:ring-4 focus:ring-fts-green-900/10 transition-all resize-y">{{ old('message') }}</textarea></div>
         <label class="flex items-start gap-3 text-sm text-slate-600"><input type="checkbox" name="consent" required class="mt-1 w-5 h-5 accent-fts-green-900 shrink-0"><span>{!! __('landing.form.consent') !!}</span></label>
-        <button type="submit" class="w-full bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 py-5 rounded-full font-black text-base md:text-lg shadow-gold hover:-translate-y-1 transition-all">{{ __('landing.form.button') }}</button>
+        <button id="analysisSubmitBtn" type="submit" data-loading-text="{{ __('landing.form.button_loading') }}" class="w-full bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 py-5 rounded-full font-black text-base md:text-lg shadow-gold hover:-translate-y-1 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0">{{ __('landing.form.button') }}</button>
         <p class="text-center text-xs text-slate-500 leading-relaxed">{!! __('landing.form.footnote') !!}</p>
       </form>
     </div>
@@ -393,5 +403,27 @@
 <div class="md:hidden fixed bottom-0 left-0 right-0 z-[98] bg-white/97 backdrop-blur-md border-t-2 border-fts-gold-400 shadow-2xl px-3 py-3">
   <a href="#analysis" class="block w-full bg-gradient-to-br from-fts-gold-400 via-fts-gold-500 to-fts-gold-400 text-fts-green-950 text-center py-4 rounded-full font-black text-base shadow-gold">{{ __('landing.shared.primary_cta') }} →</a>
 </div>
+
+<script>
+(function () {
+  var form = document.querySelector('#analysis form');
+  if (!form) return;
+
+  form.addEventListener('submit', function () {
+    var btn = document.getElementById('analysisSubmitBtn');
+    var overlay = document.getElementById('analysisLoadingOverlay');
+
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = btn.dataset.loadingText || btn.textContent;
+    }
+
+    if (overlay) {
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+    }
+  });
+})();
+</script>
 </body>
 </html>
