@@ -192,6 +192,12 @@ return [
         'ai_note' => 'Catatan: ini draft awal berdasarkan data form. Tim tetap perlu mengecek data asli sebelum laporan final dikirim.',
         'ai_error' => 'Form berhasil masuk, tetapi draft AI belum berhasil dibuat. Tim tetap bisa memprosesnya secara manual.',
         'ai_not_configured' => 'Form berhasil masuk. Draft AI belum aktif karena API key belum diatur.',
+        'email_user_subject' => 'Draft Analisis Gratis untuk :label',
+        'email_user_greeting' => 'Halo, :name!',
+        'email_user_intro' => 'Terima kasih sudah mengisi form analisis gratis. Berikut adalah draft awal yang dibuat oleh AI berdasarkan informasi yang Anda berikan.',
+        'email_user_no_analysis' => 'Tim kami akan segera memproses permintaan Anda dan mengirimkan analisis secara manual.',
+        'email_user_note' => 'Catatan: ini draft awal dan belum merupakan laporan final. Tim FTS akan menghubungi Anda untuk pembahasan lebih lanjut.',
+        'email_user_closing' => 'Jika ada pertanyaan, balas email ini langsung — kami siap membantu.',
     ],
     'footer' => [
         'links' => ['Kebijakan Privasi', 'Syarat & Ketentuan', 'Tentang Kami', 'Kontak'],

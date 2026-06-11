@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\FreeAnalysisLeadSubmitted;
+use App\Mail\FreeAnalysisResultUser;
 use App\Services\RestaurantAnalysisService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -101,6 +102,17 @@ class LandingController extends Controller
                     'message' => $exception->getMessage(),
                 ]);
             }
+        }
+
+        $appLocale = self::SUPPORTED_LOCALES[$locale] ?? 'id';
+        try {
+            Mail::to((string) $validated['email'], (string) ($validated['name'] ?? ''))
+                ->send(new FreeAnalysisResultUser($validated, $analysis, $appLocale));
+        } catch (Throwable $exception) {
+            Log::warning('Free analysis result email to user failed.', [
+                'email' => $validated['email'],
+                'message' => $exception->getMessage(),
+            ]);
         }
 
         return redirect($this->analysisUrl($locale))

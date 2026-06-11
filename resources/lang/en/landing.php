@@ -180,6 +180,12 @@ return [
         'ai_note' => 'Note: this is an initial draft based on the form data. The team should still check the source data before sending the final report.',
         'ai_error' => 'Your form was received, but the AI draft could not be created yet. The team can still process it manually.',
         'ai_not_configured' => 'Your form was received. The AI draft is not active because the API key has not been configured.',
+        'email_user_subject' => 'Your Free Analysis Draft for :label',
+        'email_user_greeting' => 'Hi, :name!',
+        'email_user_intro' => 'Thank you for submitting the free analysis form. Below is an initial AI draft based on the information you provided.',
+        'email_user_no_analysis' => 'Our team will process your request shortly and send the analysis manually.',
+        'email_user_note' => 'Note: this is an initial draft and not the final report. The FTS team will reach out to discuss it further.',
+        'email_user_closing' => 'If you have any questions, just reply to this email — we\'re happy to help.',
     ],
     'footer' => [
         'links' => ['Privacy Policy', 'Terms of Service', 'Company Info', 'Contact'],
